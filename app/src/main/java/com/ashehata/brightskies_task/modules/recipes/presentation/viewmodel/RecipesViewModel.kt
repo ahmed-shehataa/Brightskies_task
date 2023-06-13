@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @HiltViewModel
-class RecipeViewModel @Inject constructor(
+class RecipesViewModel @Inject constructor(
     private val getAllRecipesUseCase: GetAllRecipesUseCase,
     private val getFavouriteRecipesUseCase: GetFavouriteRecipesUseCase,
     private val addRecipeToFavouriteUseCase: AddRecipeToFavouriteUseCase,
@@ -59,6 +59,9 @@ class RecipeViewModel @Inject constructor(
                             event.recipeDomainModel.copy(isFavourite = true)
                         )
                     }
+                    setState {
+                        RecipesState.AddSuccess
+                    }
                 }
             }
             is RecipesEvent.ChangeScreenMode -> {
@@ -93,6 +96,9 @@ class RecipeViewModel @Inject constructor(
                             index,
                             event.recipeDomainModel.copy(isFavourite = false)
                         )
+                    }
+                    setState {
+                        RecipesState.RemoveSuccess
                     }
                 }
             }

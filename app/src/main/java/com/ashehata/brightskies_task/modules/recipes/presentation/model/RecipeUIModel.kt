@@ -1,5 +1,9 @@
 package com.ashehata.brightskies_task.modules.recipes.presentation.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class RecipeUIModel(
     val id: String,
     val calories: String? = null,
@@ -26,4 +30,4 @@ data class RecipeUIModel(
     val undeliverableIngredients: List<String?>? = null,
     val weeks: List<String?>? = null,
     var isFavourite: Boolean = false
-)
+) : Parcelable

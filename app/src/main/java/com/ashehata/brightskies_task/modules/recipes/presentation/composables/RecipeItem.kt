@@ -40,6 +40,7 @@ fun RecipeItem(
         modifier = Modifier
             .padding(horizontal = 20.dp)
             .border(color = Color.Gray, shape = RoundedCornerShape(8.dp), width = 1.dp)
+            .clip(RoundedCornerShape(8.dp))
             .clickable {
                 recipe?.let { onRecipeClicked(it) }
             }

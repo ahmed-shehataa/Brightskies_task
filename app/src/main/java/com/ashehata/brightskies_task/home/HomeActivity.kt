@@ -3,7 +3,7 @@ package com.ashehata.brightskies_task.home
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.ashehata.brightskies_task.modules.recipes.presentation.composables.NavGraphs
+import com.ashehata.brightskies_task.modules.NavGraphs
 import com.ashehata.brightskies_task.ui.theme.AppTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import dagger.hilt.android.AndroidEntryPoint

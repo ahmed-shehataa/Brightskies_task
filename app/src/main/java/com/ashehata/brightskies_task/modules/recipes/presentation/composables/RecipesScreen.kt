@@ -1,14 +1,19 @@
 package com.ashehata.brightskies_task.modules.recipes.presentation.composables
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.ashehata.brightskies_task.common.presentation.GeneralObservers
+import com.ashehata.brightskies_task.modules.destinations.RecipeDetailsScreenDestination
 import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesEvent
+import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesState
 import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesViewState
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipeUIModel
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipesScreenMode
-import com.ashehata.brightskies_task.modules.recipes.presentation.viewmodel.RecipeViewModel
+import com.ashehata.brightskies_task.modules.recipes.presentation.viewmodel.RecipesViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
@@ -17,8 +22,10 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Destination(start = true)
 fun RecipesScreen(
     navigator: DestinationsNavigator,
-    viewModel: RecipeViewModel = hiltViewModel()
+    viewModel: RecipesViewModel = hiltViewModel()
 ) {
+
+    val context = LocalContext.current
 
     val viewStates = remember {
         viewModel.viewStates ?: RecipesViewState()
@@ -102,5 +109,20 @@ fun RecipesScreen(
         screenMode = screenMode.value,
         onRefresh = onRefresh
     )
+
+    GeneralObservers<RecipesState, RecipesViewModel>(viewModel = viewModel) {
+        when (it) {
+            RecipesState.AddSuccess -> {
+                Toast.makeText(context, "Add to Favourite!", Toast.LENGTH_SHORT).show()
+            }
+            is RecipesState.OpenRecipeDetailsScreen -> {
+                navigator.navigate(RecipeDetailsScreenDestination(it.recipeDomainModel))
+            }
+            RecipesState.RemoveSuccess -> {
+                Toast.makeText(context, "Removed from Favourite!", Toast.LENGTH_SHORT).show()
+
+            }
+        }
+    }
 
 }

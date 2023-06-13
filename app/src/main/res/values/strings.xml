@@ -4,4 +4,10 @@
     <string name="retry">Retry</string>
     <string name="recipes">Recipes</string>
     <string name="no_recipes_found">No recipes found</string>
+    <string name="carbos">Carbos</string>
+    <string name="calories">Calories</string>
+    <string name="proteins">Proteins</string>
+    <string name="description">Description</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="fats">Fats</string>
 </resources>
