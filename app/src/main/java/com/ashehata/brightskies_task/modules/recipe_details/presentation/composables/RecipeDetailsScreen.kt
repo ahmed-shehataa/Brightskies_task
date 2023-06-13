@@ -1,5 +1,6 @@
 package com.ashehata.brightskies_task.modules.recipe_details.presentation.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -18,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.ashehata.brightskies_task.R
-import com.ashehata.brightskies_task.common.presentation.compose.ZoomableImage
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipeUIModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -45,10 +45,12 @@ fun RecipeDetailsScreen(
                 },
                 backgroundColor = Color.White,
                 navigationIcon = {
-                    IconButton(onClick = {
-                        navigator.popBackStack()
-                    }) {
-                        Icon(Icons.Filled.ArrowBack, null)
+                    IconButton(
+                        onClick = {
+                            navigator.popBackStack()
+                        },
+                    ) {
+                        Icon(Icons.Filled.ArrowBack, null, tint = Color.Black)
                     }
                 }
             )
@@ -65,7 +67,9 @@ fun RecipeDetailsScreen(
                 var previousOffset = 0
 
                 LazyColumn(
-                    Modifier.fillMaxSize(),
+                    Modifier
+                        .fillMaxSize()
+                        .background(Color.White),
                     lazyListState,
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     contentPadding = PaddingValues(bottom = 12.dp),

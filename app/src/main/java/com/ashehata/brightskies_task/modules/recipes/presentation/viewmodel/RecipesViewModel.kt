@@ -85,7 +85,8 @@ class RecipesViewModel @Inject constructor(
                 }
             }
             RecipesEvent.RefreshScreen -> {
-
+                if (viewStates?.screenMode?.value == RecipesScreenMode.All)
+                    getAllRecipes()
             }
             is RecipesEvent.RemoveRecipeFromFavourite -> {
                 launchCoroutine {

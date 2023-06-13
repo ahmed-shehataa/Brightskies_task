@@ -38,7 +38,7 @@ fun RecipeDetailsItem(
 
         Text(
             text = description,
-            style = MaterialTheme.typography.subtitle2.copy(
+            style = MaterialTheme.typography.body1.copy(
                 color = Color.Gray
             ),
             maxLines = 20,
