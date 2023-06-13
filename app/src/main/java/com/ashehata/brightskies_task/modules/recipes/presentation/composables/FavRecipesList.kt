@@ -2,6 +2,7 @@ package com.ashehata.brightskies_task.modules.recipes.presentation.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
@@ -20,6 +21,7 @@ fun FavRecipesList(
     onRemoveRecipeFromFavourite: (RecipeUIModel) -> Unit
 ) {
     LazyColumn(
+        modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         state = listState

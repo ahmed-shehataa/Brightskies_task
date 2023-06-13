@@ -5,7 +5,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.ashehata.brightskies_task.common.presentation.GeneralObservers
 import com.ashehata.brightskies_task.modules.destinations.RecipeDetailsScreenDestination
 import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesEvent
@@ -22,7 +21,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Destination(start = true)
 fun RecipesScreen(
     navigator: DestinationsNavigator,
-    viewModel: RecipesViewModel = hiltViewModel()
+    viewModel: RecipesViewModel
 ) {
 
     val context = LocalContext.current
