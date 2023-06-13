@@ -1,4 +1,4 @@
-package com.ashehata.brightskies_task.database
+package com.ashehata.brightskies_task.database.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore

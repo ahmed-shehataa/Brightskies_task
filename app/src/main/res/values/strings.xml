@@ -2,4 +2,6 @@
     <string name="app_name">Brightskies_task</string>
     <string name="network_error">Network Error</string>
     <string name="retry">Retry</string>
+    <string name="recipes">Recipes</string>
+    <string name="no_recipes_found">No recipes found</string>
 </resources>

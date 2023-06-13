@@ -3,8 +3,8 @@ package com.ashehata.brightskies_task.di.modules
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import com.ashehata.brightskies_task.database.AppDataStore
-import com.ashehata.brightskies_task.database.AppDatabase
+import com.ashehata.brightskies_task.database.datastore.AppDataStore
+import com.ashehata.brightskies_task.database.room.AppDatabase
 import com.ashehata.brightskies_task.di.qualifiers.DataStoreScopeQualifier
 import com.ashehata.brightskies_task.util.Constants.BASE_URL
 import com.squareup.moshi.Moshi
