@@ -1,10 +1,10 @@
-package com.ashehata.brightskies_task
+package com.ashehata.brightskies_task.home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 
-class MainActivity : ComponentActivity() {
+class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
