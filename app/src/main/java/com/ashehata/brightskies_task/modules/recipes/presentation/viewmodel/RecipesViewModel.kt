@@ -90,7 +90,10 @@ class RecipesViewModel @Inject constructor(
             is RecipesEvent.RemoveRecipeFromFavourite -> {
                 launchCoroutine {
                     removeRecipeFromFavouriteUseCase.execute(event.recipeDomainModel.id)
-                    val index = viewStates?.allRecipes?.indexOf(event.recipeDomainModel)
+                    val currentRecipe = viewStates?.allRecipes?.find {
+                        it?.id == event.recipeDomainModel.id
+                    }
+                    val index = viewStates?.allRecipes?.indexOf(currentRecipe)
                     if (index != null) {
                         viewStates?.allRecipes?.set(
                             index,

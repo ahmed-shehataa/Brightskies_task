@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.ashehata.brightskies_task.R
+import com.ashehata.brightskies_task.common.presentation.compose.ZoomableImage
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipeUIModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -87,6 +88,7 @@ fun RecipeDetailsScreen(
                             contentDescription = null,
                             contentScale = ContentScale.FillWidth,
                         )
+
                     }
 
                     item {
