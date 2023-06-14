@@ -106,7 +106,10 @@ fun RecipesScreen(
         onClearAllRecipeFromFavourite = onClearAllRecipeFromFavourite,
         onRemoveRecipeFromFavourite = onRemoveRecipeFromFavourite,
         screenMode = screenMode.value,
-        onRefresh = onRefresh
+        onRefresh = onRefresh,
+        onBackPressed = {
+            onChangeScreenMode()
+        }
     )
 
     GeneralObservers<RecipesState, RecipesViewModel>(viewModel = viewModel) {

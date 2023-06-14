@@ -29,7 +29,7 @@ fun RecipeDetailsScreenContent(
     recipe: MutableState<RecipeUIModel>,
     onAddRecipeToFavourite: (RecipeUIModel) -> Unit,
     onRemoveRecipeFromFavourite: (RecipeUIModel) -> Unit,
-    onBackPressed: () -> Boolean
+    onBackPressed: () -> Unit
 ) {
     Scaffold(
         topBar = {

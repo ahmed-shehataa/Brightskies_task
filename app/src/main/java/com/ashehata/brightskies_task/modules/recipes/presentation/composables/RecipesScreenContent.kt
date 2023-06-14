@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,7 +40,8 @@ fun RecipesScreenContent(
     onChangeScreenMode: () -> Unit,
     screenMode: RecipesScreenMode,
     onClearAllRecipeFromFavourite: () -> Unit,
-    onRemoveRecipeFromFavourite: (RecipeUIModel) -> Unit
+    onRemoveRecipeFromFavourite: (RecipeUIModel) -> Unit,
+    onBackPressed: () -> Unit,
 ) {
 
     val refreshState = rememberPullRefreshState(isRefreshing, onRefresh)
@@ -47,6 +50,21 @@ fun RecipesScreenContent(
 
 
     Column(Modifier.pullRefresh(refreshState)) {
+        val backIconNavigation: (@Composable () -> Unit)? = remember(screenMode) {
+
+            if (screenMode == RecipesScreenMode.FavouriteOnly) {
+                {
+                    IconButton(
+                        onClick = {
+                            onBackPressed()
+                        },
+                    ) {
+                        Icon(Icons.Filled.ArrowBack, null, tint = Color.Black)
+                    }
+                }
+            } else null
+
+        }
 
         TopAppBar(
             elevation = 4.dp,
@@ -54,6 +72,7 @@ fun RecipesScreenContent(
                 Text(stringResource(id = R.string.recipes))
             },
             backgroundColor = Color.White,
+            navigationIcon = backIconNavigation,
             actions = {
 
                 val colorAnimated = animateColorAsState(
