@@ -13,6 +13,7 @@ sealed class RecipesEvent : BaseEvent {
     data class OnRecipeClicked(val recipeDomainModel: RecipeUIModel) : RecipesEvent()
     data class AddRecipeToFavourite(val recipeDomainModel: RecipeUIModel) : RecipesEvent()
     data class RemoveRecipeFromFavourite(val recipeDomainModel: RecipeUIModel) : RecipesEvent()
+    object OnLogoutClicked : RecipesEvent()
     object ChangeScreenMode : RecipesEvent()
     object ClearAllFavourite : RecipesEvent()
     object RefreshScreen : RecipesEvent()
@@ -22,6 +23,7 @@ sealed class RecipesState : BaseState {
     data class OpenRecipeDetailsScreen(val recipeDomainModel: RecipeUIModel) : RecipesState()
     object AddSuccess : RecipesState()
     object RemoveSuccess : RecipesState()
+    object OpenLoginScreen : RecipesState()
 
 }
 

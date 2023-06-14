@@ -5,8 +5,11 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.navOptions
 import com.ashehata.brightskies_task.common.presentation.GeneralObservers
+import com.ashehata.brightskies_task.modules.destinations.LoginScreenDestination
 import com.ashehata.brightskies_task.modules.destinations.RecipeDetailsScreenDestination
+import com.ashehata.brightskies_task.modules.destinations.RecipesScreenDestination
 import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesEvent
 import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesState
 import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesViewState
@@ -84,6 +87,12 @@ fun RecipesScreen(
         }
     }
 
+    val onLogout = remember {
+        {
+            viewModel.setEvent(RecipesEvent.OnLogoutClicked)
+        }
+    }
+
     val onRefresh = remember {
         {
             viewModel.setEvent(RecipesEvent.RefreshScreen)
@@ -107,6 +116,7 @@ fun RecipesScreen(
         onRemoveRecipeFromFavourite = onRemoveRecipeFromFavourite,
         screenMode = screenMode.value,
         onRefresh = onRefresh,
+        onLogout = onLogout,
         onBackPressed = {
             onChangeScreenMode()
         }
@@ -123,6 +133,16 @@ fun RecipesScreen(
             RecipesState.RemoveSuccess -> {
                 Toast.makeText(context, "Removed from Favourite!", Toast.LENGTH_SHORT).show()
 
+            }
+            RecipesState.OpenLoginScreen -> {
+                navigator.navigate(
+                    LoginScreenDestination.route,
+                    navOptions = navOptions {
+                        popUpTo(RecipesScreenDestination.route) {
+                            inclusive = true
+                        }
+                    }
+                )
             }
         }
     }

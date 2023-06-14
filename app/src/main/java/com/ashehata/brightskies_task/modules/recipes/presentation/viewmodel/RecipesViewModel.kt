@@ -9,6 +9,7 @@ import com.ashehata.brightskies_task.modules.recipes.presentation.mapper.toDomai
 import com.ashehata.brightskies_task.modules.recipes.presentation.mapper.toUIModel
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipeUIModel
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipesScreenMode
+import com.ashehata.brightskies_task.modules.user.domain.usecase.LogOutUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -19,7 +20,8 @@ class RecipesViewModel @Inject constructor(
     private val getFavouriteRecipesUseCase: GetFavouriteRecipesUseCase,
     private val addRecipeToFavouriteUseCase: AddRecipeToFavouriteUseCase,
     private val removeRecipeFromFavouriteUseCase: RemoveRecipeFromFavouriteUseCase,
-    private val clearAllRecipesFromFavouriteUseCase: ClearAllRecipesFromFavouriteUseCase
+    private val clearAllRecipesFromFavouriteUseCase: ClearAllRecipesFromFavouriteUseCase,
+    private val logOutUserUseCase: LogOutUserUseCase
 ) : BaseViewModel<RecipesEvent, RecipesViewState, RecipesState>() {
 
 
@@ -127,6 +129,14 @@ class RecipesViewModel @Inject constructor(
                         )
                     }
 
+                }
+            }
+            RecipesEvent.OnLogoutClicked -> {
+                launchCoroutine {
+                    logOutUserUseCase.execute()
+                    setState {
+                        RecipesState.OpenLoginScreen
+                    }
                 }
             }
         }

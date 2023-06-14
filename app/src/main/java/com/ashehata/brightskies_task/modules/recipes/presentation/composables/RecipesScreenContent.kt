@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
@@ -42,6 +43,7 @@ fun RecipesScreenContent(
     onClearAllRecipeFromFavourite: () -> Unit,
     onRemoveRecipeFromFavourite: (RecipeUIModel) -> Unit,
     onBackPressed: () -> Unit,
+    onLogout: () -> Unit,
 ) {
 
     val refreshState = rememberPullRefreshState(isRefreshing, onRefresh)
@@ -103,6 +105,16 @@ fun RecipesScreenContent(
                         imageVector = Icons.Filled.Favorite,
                         contentDescription = null,
                         tint = colorAnimated.value
+                    )
+                }
+
+                IconButton(onClick = {
+                    onLogout()
+
+                }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Close,
+                        contentDescription = null,
                     )
                 }
 
