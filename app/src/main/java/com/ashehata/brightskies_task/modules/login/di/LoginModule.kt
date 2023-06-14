@@ -21,8 +21,6 @@ abstract class LoginModule {
 
     @ViewModelScoped
     @Binds
-    abstract fun bindsLoginRemoteDataSource(
-        loginRemoteDataSourceImpl: LoginRemoteDataSourceImpl
-    ): LoginRemoteDataSource
+    abstract fun bindsLoginRemoteDataSource(loginRemoteDataSourceImpl: LoginRemoteDataSourceImpl): LoginRemoteDataSource
 
 }

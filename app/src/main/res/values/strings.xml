@@ -13,4 +13,7 @@
     <string name="empty_lbl"></string>
     <string name="empty_field">Empty field</string>
     <string name="invalid_email">Invaild Email</string>
+    <string name="email">Enter Email</string>
+    <string name="password">Enter Password</string>
+    <string name="login">Login</string>
 </resources>

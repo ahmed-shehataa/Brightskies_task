@@ -12,7 +12,8 @@ enum class ValidationType {
 }
 
 data class InputWrapper(
-    var inputValue: MutableState<String> = mutableStateOf(""),
+    var text: MutableState<String> = mutableStateOf(""),
+    var isValid: MutableState<Boolean> = mutableStateOf(false),
     var borderColor: Color = Color.Gray,
     val validationType: ValidationType? = ValidationType.Text
 ) {
@@ -20,20 +21,20 @@ data class InputWrapper(
     var validationMessageResId: Int = R.string.empty_lbl
 
     fun onValueChange(input: String) {
-        inputValue.value = input
+        text.value = input
         validationMessageResId = when (validationType) {
             ValidationType.Email -> input.validateEmail()
             else -> input.validateText()
         }
-        borderColor = if (isValid) {
+        borderColor = if (isValid.value) {
             Color.Gray
         } else {
             Color.Red
         }
+        isValid.value = validationMessageResId == R.string.empty_lbl && text.value.isNotEmpty()
     }
 
-    val isValid: Boolean
-        get() = validationMessageResId == R.string.empty_lbl && inputValue.value.isNotEmpty()
+
 
 }
 

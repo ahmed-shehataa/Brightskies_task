@@ -18,7 +18,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 
 @Composable
-@Destination(start = true)
+@Destination
 fun RecipesScreen(
     navigator: DestinationsNavigator,
     viewModel: RecipesViewModel
