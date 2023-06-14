@@ -7,5 +7,5 @@ interface UserLocalDataSource {
     suspend fun getUser(): UserDomainModel
     suspend fun setUser(user: UserDomainModel)
     suspend fun clearUser()
-    fun checkIfUserLoggedIn(): Boolean
+    suspend fun checkIfUserLoggedIn(): Boolean
 }

@@ -1,6 +1,7 @@
 package com.ashehata.brightskies_task.modules.user.data.local
 
 
+import android.util.Log
 import com.ashehata.brightskies_task.database.datastore.AppDataStore
 import com.ashehata.brightskies_task.modules.user.domain.model.UserDomainModel
 import javax.inject.Inject
@@ -22,8 +23,8 @@ class UserLocalDataSourceImpl @Inject constructor(
         appDataStore.clearUser()
     }
 
-    override fun checkIfUserLoggedIn(): Boolean {
-        return appDataStore.isUserLoggedIn
+    override suspend fun checkIfUserLoggedIn(): Boolean {
+        return appDataStore.getIsLoggedIn()
     }
 
 }

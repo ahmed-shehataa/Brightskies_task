@@ -7,5 +7,5 @@ interface UserRepository {
     suspend fun getUser(): UserDomainModel
     suspend fun setUser(user: UserDomainModel)
     suspend fun logoutUser()
-    fun checkIfUserLoggedIn(): Boolean
+    suspend fun checkIfUserLoggedIn(): Boolean
 }

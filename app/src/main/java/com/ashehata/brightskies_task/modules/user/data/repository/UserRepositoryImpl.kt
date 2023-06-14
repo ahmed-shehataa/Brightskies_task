@@ -21,7 +21,7 @@ class UserRepositoryImpl @Inject constructor(
         return userLocalDataSource.clearUser()
     }
 
-    override fun checkIfUserLoggedIn(): Boolean {
+    override suspend fun checkIfUserLoggedIn(): Boolean {
         return userLocalDataSource.checkIfUserLoggedIn()
     }
 
