@@ -20,7 +20,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @OptIn(ExperimentalComposeUiApi::class)
-@Destination(start = true)
+@Destination
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),

@@ -45,6 +45,7 @@ class AppDataStore @Inject constructor(private val context: Context, scope: Coro
         context.dataStore.edit { settings ->
             settings[userPref] = userDomainModel.toString()
         }
+        setIsLoggedIn(true)
     }
 
     suspend fun getUser(): UserDomainModel {
