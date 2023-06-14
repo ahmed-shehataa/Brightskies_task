@@ -10,4 +10,7 @@
     <string name="description">Description</string>
     <string name="ingredients">Ingredients</string>
     <string name="fats">Fats</string>
+    <string name="empty_lbl"></string>
+    <string name="empty_field">Empty field</string>
+    <string name="invalid_email">Invaild Email</string>
 </resources>
