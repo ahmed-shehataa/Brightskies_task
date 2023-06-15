@@ -31,6 +31,8 @@ data class RecipesViewState(
     override val isNetworkError: MutableState<Boolean> = mutableStateOf(false),
     override val isRefreshing: MutableState<Boolean> = mutableStateOf(false),
     override val isLoading: MutableState<Boolean> = mutableStateOf(false),
+    val logoutDialogState: MutableState<Boolean> = mutableStateOf(false),
+    val deleteAllRecipesDialogState: MutableState<Boolean> = mutableStateOf(false),
     val screenMode: MutableState<RecipesScreenMode> = mutableStateOf(RecipesScreenMode.All),
     val favRecipes: MutableList<RecipeUIModel?> = SnapshotStateList(),
     val allRecipes: MutableList<RecipeUIModel?> = SnapshotStateList(),

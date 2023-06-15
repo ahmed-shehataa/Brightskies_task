@@ -14,6 +14,7 @@ import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.ashehata.brightskies_task.R
+import com.ashehata.brightskies_task.common.presentation.compose.AlertDialog
 import com.ashehata.brightskies_task.common.presentation.compose.LoadingView
 import com.ashehata.brightskies_task.common.presentation.compose.NetworkErrorView
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipeUIModel
@@ -44,6 +46,8 @@ fun RecipesScreenContent(
     onRemoveRecipeFromFavourite: (RecipeUIModel) -> Unit,
     onBackPressed: () -> Unit,
     onLogout: () -> Unit,
+    logoutDialogState: MutableState<Boolean>,
+    deleteAllRecipesDialogState: MutableState<Boolean>,
 ) {
 
     val refreshState = rememberPullRefreshState(isRefreshing, onRefresh)
@@ -87,7 +91,7 @@ fun RecipesScreenContent(
                     exit = scaleOut()
                 ) {
                     IconButton(onClick = {
-                        onClearAllRecipeFromFavourite()
+                        deleteAllRecipesDialogState.value = true
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Delete,
@@ -109,8 +113,7 @@ fun RecipesScreenContent(
                 }
 
                 IconButton(onClick = {
-                    onLogout()
-
+                    logoutDialogState.value = true
                 }) {
                     Icon(
                         imageVector = Icons.Rounded.Close,
@@ -160,6 +163,28 @@ fun RecipesScreenContent(
             }
 
         }
+
+        AlertDialog(
+            state = logoutDialogState,
+            title = R.string.logout,
+            content = R.string.are_you_sure_to_logout,
+            positiveTitleRes = R.string.logout,
+            negativeTitleRes = R.string.cancel,
+            positive = {
+                onLogout()
+            }
+        )
+
+        AlertDialog(
+            state = deleteAllRecipesDialogState,
+            title = R.string.delete_all_fav,
+            content = R.string.are_you_sure_to_delete_all_favourite,
+            positiveTitleRes = R.string.delete,
+            negativeTitleRes = R.string.cancel,
+            positive = {
+                onClearAllRecipeFromFavourite()
+            }
+        )
 
     }
 }

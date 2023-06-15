@@ -57,6 +57,14 @@ fun RecipesScreen(
         viewStates.isNetworkError
     }
 
+    val logoutDialogState = remember {
+        viewStates.logoutDialogState
+    }
+
+    val deleteAllRecipesDialogState = remember {
+        viewStates.deleteAllRecipesDialogState
+    }
+
     val onRecipeClicked: (RecipeUIModel) -> Unit = remember {
         {
             viewModel.setEvent(RecipesEvent.OnRecipeClicked(it))
@@ -109,6 +117,8 @@ fun RecipesScreen(
         isLoading = isLoading.value,
         isRefreshing = isRefreshing.value,
         isNetworkError = isNetworkError.value,
+        logoutDialogState = logoutDialogState,
+        deleteAllRecipesDialogState = deleteAllRecipesDialogState,
         onRecipeClicked = onRecipeClicked,
         onAddRecipeToFavourite = onAddRecipeToFavourite,
         onChangeScreenMode = onChangeScreenMode,

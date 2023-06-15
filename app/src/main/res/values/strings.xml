@@ -16,4 +16,10 @@
     <string name="email">Enter Email</string>
     <string name="password">Enter Password</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="are_you_sure_to_logout">Are you sure to logout?</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_all_fav">Delete all favourite</string>
+    <string name="are_you_sure_to_delete_all_favourite">Are you sure to delete all favourite?</string>
+    <string name="delete">Delete</string>
 </resources>
