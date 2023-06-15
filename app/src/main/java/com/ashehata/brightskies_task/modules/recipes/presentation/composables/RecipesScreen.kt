@@ -65,6 +65,10 @@ fun RecipesScreen(
         viewStates.deleteAllRecipesDialogState
     }
 
+    val user = remember {
+        viewStates.user
+    }
+
     val onRecipeClicked: (RecipeUIModel) -> Unit = remember {
         {
             viewModel.setEvent(RecipesEvent.OnRecipeClicked(it))
@@ -112,6 +116,7 @@ fun RecipesScreen(
     }
 
     RecipesScreenContent(
+        user = user.value,
         allRecipes = allRecipes,
         favRecipes = favRecipes,
         isLoading = isLoading.value,

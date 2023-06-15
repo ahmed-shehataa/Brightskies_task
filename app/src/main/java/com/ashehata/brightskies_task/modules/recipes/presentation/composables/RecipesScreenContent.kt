@@ -27,6 +27,7 @@ import com.ashehata.brightskies_task.common.presentation.compose.LoadingView
 import com.ashehata.brightskies_task.common.presentation.compose.NetworkErrorView
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipeUIModel
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipesScreenMode
+import com.ashehata.brightskies_task.modules.user.presentaion.model.UserUIModel
 
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalAnimationApi::class)
@@ -48,11 +49,24 @@ fun RecipesScreenContent(
     onLogout: () -> Unit,
     logoutDialogState: MutableState<Boolean>,
     deleteAllRecipesDialogState: MutableState<Boolean>,
+    user: UserUIModel?,
 ) {
 
     val refreshState = rememberPullRefreshState(isRefreshing, onRefresh)
     val allListState = rememberLazyListState()
     val favListState = rememberLazyListState()
+
+    val screenTitle: @Composable () -> String = remember(screenMode) {
+        {
+            when (screenMode) {
+                RecipesScreenMode.All -> String.format(
+                    stringResource(id = R.string.hi_user_name),
+                    user?.userName ?: ""
+                )
+                RecipesScreenMode.FavouriteOnly -> stringResource(id = R.string.fav_recipes)
+            }
+        }
+    }
 
 
     Column(Modifier.pullRefresh(refreshState)) {
@@ -75,7 +89,7 @@ fun RecipesScreenContent(
         TopAppBar(
             elevation = 4.dp,
             title = {
-                Text(stringResource(id = R.string.recipes))
+                Text(screenTitle())
             },
             backgroundColor = Color.White,
             navigationIcon = backIconNavigation,

@@ -8,6 +8,7 @@ import com.ashehata.brightskies_task.base.BaseState
 import com.ashehata.brightskies_task.base.BaseViewState
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipeUIModel
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipesScreenMode
+import com.ashehata.brightskies_task.modules.user.presentaion.model.UserUIModel
 
 sealed class RecipesEvent : BaseEvent {
     data class OnRecipeClicked(val recipeDomainModel: RecipeUIModel) : RecipesEvent()
@@ -31,6 +32,7 @@ data class RecipesViewState(
     override val isNetworkError: MutableState<Boolean> = mutableStateOf(false),
     override val isRefreshing: MutableState<Boolean> = mutableStateOf(false),
     override val isLoading: MutableState<Boolean> = mutableStateOf(false),
+    val user: MutableState<UserUIModel?> = mutableStateOf(null),
     val logoutDialogState: MutableState<Boolean> = mutableStateOf(false),
     val deleteAllRecipesDialogState: MutableState<Boolean> = mutableStateOf(false),
     val screenMode: MutableState<RecipesScreenMode> = mutableStateOf(RecipesScreenMode.All),

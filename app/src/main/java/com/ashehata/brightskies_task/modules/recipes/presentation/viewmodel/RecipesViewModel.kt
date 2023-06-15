@@ -9,7 +9,9 @@ import com.ashehata.brightskies_task.modules.recipes.presentation.mapper.toDomai
 import com.ashehata.brightskies_task.modules.recipes.presentation.mapper.toUIModel
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipeUIModel
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipesScreenMode
+import com.ashehata.brightskies_task.modules.user.domain.usecase.GetUserUseCase
 import com.ashehata.brightskies_task.modules.user.domain.usecase.LogOutUserUseCase
+import com.ashehata.brightskies_task.modules.user.presentaion.mapper.toUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -21,13 +23,21 @@ class RecipesViewModel @Inject constructor(
     private val addRecipeToFavouriteUseCase: AddRecipeToFavouriteUseCase,
     private val removeRecipeFromFavouriteUseCase: RemoveRecipeFromFavouriteUseCase,
     private val clearAllRecipesFromFavouriteUseCase: ClearAllRecipesFromFavouriteUseCase,
-    private val logOutUserUseCase: LogOutUserUseCase
+    private val logOutUserUseCase: LogOutUserUseCase,
+    private val getUserUseCase: GetUserUseCase
 ) : BaseViewModel<RecipesEvent, RecipesViewState, RecipesState>() {
 
 
     init {
+        getUser()
         getAllRecipes()
         getFavRecipes()
+    }
+
+    private fun getUser() {
+        launchCoroutine {
+            viewStates?.user?.value = getUserUseCase.execute().toUIModel()
+        }
     }
 
     private fun getFavRecipes() {
@@ -73,7 +83,7 @@ class RecipesViewModel @Inject constructor(
                         RecipesScreenMode.FavouriteOnly
                     }
                     RecipesScreenMode.FavouriteOnly -> {
-                        if (viewStates?.allRecipes.isNullOrEmpty())
+                        if (viewStates?.allRecipes.isNullOrEmpty() && viewStates?.isLoading?.value?.not() == true)
                             getAllRecipes()
 
                         RecipesScreenMode.All
