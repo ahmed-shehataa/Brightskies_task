@@ -21,7 +21,6 @@ class RecipesRepositoryImplTest {
     private lateinit var remote: RecipesRemoteDataSource
     private lateinit var local: RecipesLocalDataSource
     private lateinit var recipesRepository: RecipesRepository
-
     private lateinit var localRecipes: List<RecipeDataModel>
     private lateinit var remoteRecipes: List<RecipeDataModel>
 
