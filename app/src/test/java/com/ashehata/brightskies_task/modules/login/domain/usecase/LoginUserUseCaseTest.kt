@@ -7,6 +7,8 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito
+import org.mockito.Mockito.mock
 import java.io.IOException
 
 class LoginUserUseCaseTest {
@@ -16,7 +18,7 @@ class LoginUserUseCaseTest {
 
     @Before
     fun setUp() {
-        loginRepository = FakeLoginRepository()
+        loginRepository = mock()
         loginUserUseCase = LoginUserUseCase(loginRepository)
     }
 
@@ -35,6 +37,7 @@ class LoginUserUseCaseTest {
         )
 
         // act
+        Mockito.`when`(loginRepository.login(email, password)).thenReturn(expectedUser)
         val actualUser = loginRepository.login(
             email = email,
             password = password
@@ -51,6 +54,9 @@ class LoginUserUseCaseTest {
         val password = "123456"
 
         // act
+        Mockito.`when`(loginRepository.login(email, password)).then {
+            throw IOException()
+        }
         val actualUser = loginRepository.login(
             email = email,
             password = password
