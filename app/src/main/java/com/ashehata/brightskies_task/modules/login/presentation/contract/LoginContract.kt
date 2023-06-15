@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import com.ashehata.brightskies_task.base.BaseEvent
 import com.ashehata.brightskies_task.base.BaseState
 import com.ashehata.brightskies_task.base.BaseViewState
-import com.ashehata.brightskies_task.common.domain.validation.InputWrapper
-import com.ashehata.brightskies_task.common.domain.validation.ValidationType
+import com.ashehata.brightskies_task.common.presentation.InputWrapper
+import com.ashehata.brightskies_task.common.presentation.ValidationType
 
 sealed class LoginEvent : BaseEvent {
     object OnLoginClicked : LoginEvent()

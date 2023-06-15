@@ -17,7 +17,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.ashehata.brightskies_task.R
-import com.ashehata.brightskies_task.common.domain.validation.InputWrapper
+import com.ashehata.brightskies_task.common.presentation.InputWrapper
 import com.ashehata.brightskies_task.common.presentation.compose.InputText
 
 @Composable

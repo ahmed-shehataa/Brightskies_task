@@ -22,8 +22,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.ashehata.brightskies_task.R
-import com.ashehata.brightskies_task.common.domain.validation.InputWrapper
-import com.ashehata.brightskies_task.common.domain.validation.ValidationType
+import com.ashehata.brightskies_task.common.presentation.InputWrapper
+import com.ashehata.brightskies_task.common.presentation.ValidationType
 
 
 @OptIn(ExperimentalAnimationApi::class)
