@@ -32,6 +32,8 @@ fun InputText(
     hint: String,
     inputWrapper: InputWrapper,
     keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Next,
+    onDone: () -> Unit
 ) {
 
     val focusManager = LocalFocusManager.current
@@ -84,6 +86,7 @@ fun InputText(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
         ) {
+
             TextField(
                 placeholder = { Text(hint, style = MaterialTheme.typography.button) },
                 value = text,
@@ -95,13 +98,14 @@ fun InputText(
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = keyboardType,
-                    imeAction = ImeAction.Next
+                    imeAction = imeAction
                 ),
                 keyboardActions = KeyboardActions(
                     onNext = {
                         focusManager.moveFocus(FocusDirection.Down)
                     },
                     onDone = {
+                        onDone()
                         focusManager.clearFocus()
                     }
 

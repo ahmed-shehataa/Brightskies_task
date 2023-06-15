@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.ashehata.brightskies_task.R
@@ -52,23 +53,29 @@ fun LoginScreenContent(
 
 
             InputText(
-                inputWrapper = email,
                 hint = stringResource(id = R.string.email),
+                inputWrapper = email,
                 keyboardType = KeyboardType.Email
-            )
+            ) {
+
+            }
 
 
             InputText(
                 inputWrapper = password,
                 hint = stringResource(id = R.string.password),
-                keyboardType = KeyboardType.Password
+                keyboardType = KeyboardType.Password,
+                imeAction = ImeAction.Done,
+                onDone = {
+                    if (isButtonEnabled)
+                        onLoginClicked()
+                }
             )
 
             Button(
                 modifier = Modifier
                     .requiredHeight(50.dp)
-                    .fillMaxWidth(
-                    ),
+                    .fillMaxWidth(),
                 onClick = onLoginClicked,
                 content = {
                     Text(text = stringResource(R.string.login))
