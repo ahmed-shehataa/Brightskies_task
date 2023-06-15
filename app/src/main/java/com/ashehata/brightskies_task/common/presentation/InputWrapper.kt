@@ -24,8 +24,8 @@ data class InputWrapper(
     fun onValueChange(input: String) {
         text.value = input
         validationMessageResId = when (validationType) {
-            ValidationType.Email -> input.validateEmail()
-            else -> input.validateText()
+            ValidationType.Email -> input.validateEmail().toMessageRes()
+            else -> input.validateText().toMessageRes()
         }
         borderColor = if (isValid.value) {
             Color.Gray
@@ -33,5 +33,18 @@ data class InputWrapper(
             Color.Red
         }
         isValid.value = validationMessageResId == R.string.empty_lbl && text.value.isNotEmpty()
+    }
+}
+
+private fun ValidationMessageType.toMessageRes(): Int {
+    return when (this) {
+        ValidationMessageType.EmptyField -> R.string.empty_field
+        is ValidationMessageType.Invalid -> {
+            when (this.validationType) {
+                ValidationType.Email -> R.string.invalid_email
+                else -> R.string.invalid_email
+            }
+        }
+        ValidationMessageType.Valid -> R.string.empty_lbl
     }
 }
