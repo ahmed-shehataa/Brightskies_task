@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.room.Room
 import com.ashehata.brightskies_task.database.datastore.AppDataStore
 import com.ashehata.brightskies_task.database.room.AppDatabase
-import com.ashehata.brightskies_task.di.qualifiers.DataStoreScopeQualifier
 import com.ashehata.brightskies_task.util.Constants.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -14,8 +13,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -69,16 +66,8 @@ class AppModule {
     @Provides
     fun provideDataStore(
         application: Application,
-        @DataStoreScopeQualifier scope: CoroutineScope
     ): AppDataStore {
-        return AppDataStore(application, scope)
-    }
-
-    @Singleton
-    @Provides
-    @DataStoreScopeQualifier
-    fun providesDataStoreScope(): CoroutineScope {
-        return CoroutineScope(Dispatchers.IO)
+        return AppDataStore(application)
     }
 
     @Provides
