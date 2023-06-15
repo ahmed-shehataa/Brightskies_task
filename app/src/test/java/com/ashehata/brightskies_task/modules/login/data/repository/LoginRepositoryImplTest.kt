@@ -3,6 +3,7 @@ package com.ashehata.brightskies_task.modules.login.data.repository
 
 import com.ashehata.brightskies_task.modules.login.data.remote.LoginRemoteDataSource
 import com.ashehata.brightskies_task.modules.login.domain.repository.LoginRepository
+import com.ashehata.brightskies_task.modules.user.data.mapper.toDomainModel
 import com.ashehata.brightskies_task.modules.user.data.model.UserDataModel
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -46,8 +47,7 @@ class LoginRepositoryImplTest {
         )
 
         // assert
-        Assert.assertEquals(expectedUser.name, actualUser.name)
-        Assert.assertEquals(expectedUser.email, actualUser.email)
+        Assert.assertEquals(expectedUser.toDomainModel(), actualUser)
     }
 
     @Test(expected = IOException::class)
