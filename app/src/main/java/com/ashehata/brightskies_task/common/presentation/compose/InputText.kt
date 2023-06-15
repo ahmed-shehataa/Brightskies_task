@@ -5,22 +5,23 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.ashehata.brightskies_task.R
 import com.ashehata.brightskies_task.common.domain.validation.InputWrapper
 import com.ashehata.brightskies_task.common.domain.validation.ValidationType
 
@@ -39,9 +40,28 @@ fun InputText(
         inputWrapper.text
     }
 
-    val isPasswordVisible by remember {
+    var isPasswordVisible by remember {
         mutableStateOf(false)
     }
+
+    val trailingIcon: @Composable (() -> Unit)? = remember(inputWrapper.validationType) {
+        {
+            if (inputWrapper.validationType == ValidationType.Password) {
+                val iconRes = if (isPasswordVisible)
+                    R.drawable.ic_eye_opened
+                else R.drawable.ic_eye_closed
+
+                IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+                    Icon(
+                        modifier = Modifier.size(24.dp),
+                        imageVector = ImageVector.vectorResource(id = iconRes),
+                        contentDescription = null,
+                    )
+                }
+            } else null
+        }
+    }
+
 
     val visualTransformation by remember {
         derivedStateOf {
@@ -65,7 +85,7 @@ fun InputText(
             horizontalArrangement = Arrangement.Center,
         ) {
             TextField(
-                label = { Text(hint, style = MaterialTheme.typography.button) },
+                placeholder = { Text(hint, style = MaterialTheme.typography.button) },
                 value = text,
                 onValueChange = {
                     inputWrapper.onValueChange(it)
@@ -87,6 +107,7 @@ fun InputText(
 
                 ),
                 visualTransformation = visualTransformation,
+                trailingIcon = trailingIcon
             )
         }
 

@@ -3,13 +3,13 @@ package com.ashehata.brightskies_task.modules.recipes.presentation.composables
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
@@ -19,7 +19,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.ashehata.brightskies_task.R
 import com.ashehata.brightskies_task.common.presentation.compose.AlertDialog
@@ -89,7 +92,7 @@ fun RecipesScreenContent(
         TopAppBar(
             elevation = 4.dp,
             title = {
-                Text(screenTitle())
+                Text(screenTitle(), maxLines = 1, overflow = TextOverflow.Ellipsis)
             },
             backgroundColor = Color.White,
             navigationIcon = backIconNavigation,
@@ -130,8 +133,10 @@ fun RecipesScreenContent(
                     logoutDialogState.value = true
                 }) {
                     Icon(
-                        imageVector = Icons.Rounded.Close,
+                        modifier = Modifier.size(20.dp),
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_logout),
                         contentDescription = null,
+                        tint = Color.Black,
                     )
                 }
 
