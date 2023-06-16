@@ -1,7 +1,6 @@
 package com.ashehata.brightskies_task.modules.user.data.local
 
 
-import android.util.Log
 import com.ashehata.brightskies_task.database.datastore.AppDataStore
 import com.ashehata.brightskies_task.modules.user.domain.model.UserDomainModel
 import javax.inject.Inject
