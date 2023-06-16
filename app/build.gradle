@@ -19,7 +19,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.ashehata.brightskies_task.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -122,7 +122,12 @@ dependencies {
     //region androidTest
     androidTestImplementation 'junit:junit:4.13.2'
     androidTestImplementation composeBom
+    // Test rules and transitive dependencies:
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeBom")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeBom")
     androidTestImplementation "androidx.test:runner:1.5.2"
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.44'
     //endregion
 
 

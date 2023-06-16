@@ -24,7 +24,7 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
-    navigator: DestinationsNavigator
+    navigator: DestinationsNavigator? = null
 ) {
 
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -73,7 +73,7 @@ fun LoginScreen(
     GeneralObservers<LoginState, LoginViewModel>(viewModel = viewModel) {
         when (it) {
             LoginState.OpenRecipesScreen -> {
-                navigator.navigate(RecipesScreenDestination, navOptions = navOptions {
+                navigator?.navigate(RecipesScreenDestination, navOptions = navOptions {
                     popUpTo(LoginScreenDestination.route) {
                         inclusive = true
                     }

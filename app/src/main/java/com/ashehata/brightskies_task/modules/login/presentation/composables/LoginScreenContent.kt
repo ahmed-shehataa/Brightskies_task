@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
@@ -53,7 +54,7 @@ fun LoginScreenContent(
 
 
             InputText(
-                hint = stringResource(id = R.string.email),
+                hint = stringResource(id = R.string.enter_email),
                 inputWrapper = email,
                 keyboardType = KeyboardType.Email
             ) {
@@ -63,7 +64,7 @@ fun LoginScreenContent(
 
             InputText(
                 inputWrapper = password,
-                hint = stringResource(id = R.string.password),
+                hint = stringResource(id = R.string.enter_password),
                 keyboardType = KeyboardType.Password,
                 imeAction = ImeAction.Done,
                 onDone = {
@@ -88,7 +89,7 @@ fun LoginScreenContent(
 
         if (isLoading) {
             Surface(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().testTag("loading_view"),
                 color = Color.Black.copy(alpha = 0.5f)
             ) {
 
