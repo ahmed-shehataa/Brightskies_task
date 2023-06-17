@@ -31,24 +31,27 @@ relevant information.
   <img src="img/testing.png" height="220" width="300">
 </p>
 
-Unit testing for:
+## Credentials:
+Email: ahmed@gmail.com
+Password: 123456
+
+
+## Unit testing for:
 - Login module (data - repository - useCase)
 - User module (data - repository - useCase)
 - Recipes module (data - repository - useCase)
-- 
+- Validation.kt
 
-UI test for:
+## UI test for:
 - All app flow
 - Login Screen
 - Recipes Screen
 
 
 ## Features
-- Dark and light mode
-- Offline cashing
 - Obfuscation
 - Simple UI
-- Animations
+- Simple Animations
 - Config changes handling
 
 ## Tools & APIs
