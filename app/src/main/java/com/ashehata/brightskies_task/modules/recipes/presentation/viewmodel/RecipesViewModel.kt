@@ -1,0 +1,170 @@
+package com.ashehata.brightskies_task.modules.recipes.presentation.viewmodel
+
+import com.ashehata.brightskies_task.base.BaseViewModel
+import com.ashehata.brightskies_task.database.room.AppDatabase
+import com.ashehata.brightskies_task.modules.recipes.domain.usecase.*
+import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesEvent
+import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesState
+import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesViewState
+import com.ashehata.brightskies_task.modules.recipes.presentation.mapper.toDomainModel
+import com.ashehata.brightskies_task.modules.recipes.presentation.mapper.toUIModel
+import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipeUIModel
+import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipesScreenMode
+import com.ashehata.brightskies_task.modules.user.domain.usecase.GetUserUseCase
+import com.ashehata.brightskies_task.modules.user.domain.usecase.LogOutUserUseCase
+import com.ashehata.brightskies_task.modules.user.presentaion.mapper.toUIModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+
+@HiltViewModel
+class RecipesViewModel @Inject constructor(
+    private val getAllRecipesUseCase: GetAllRecipesUseCase,
+    private val getFavouriteRecipesUseCase: GetFavouriteRecipesUseCase,
+    private val addRecipeToFavouriteUseCase: AddRecipeToFavouriteUseCase,
+    private val removeRecipeFromFavouriteUseCase: RemoveRecipeFromFavouriteUseCase,
+    private val clearAllRecipesFromFavouriteUseCase: ClearAllRecipesFromFavouriteUseCase,
+    private val logOutUserUseCase: LogOutUserUseCase,
+    private val getUserUseCase: GetUserUseCase,
+    private val appDatabase: AppDatabase,
+) : BaseViewModel<RecipesEvent, RecipesViewState, RecipesState>() {
+
+
+    init {
+        getUser()
+        getAllRecipes()
+        getFavRecipes()
+    }
+
+    private fun getUser() {
+        launchCoroutine {
+            viewStates?.user?.value = getUserUseCase.execute().toUIModel()
+        }
+    }
+
+    private fun getFavRecipes() {
+        launchCoroutine {
+            getFavouriteRecipesUseCase.execute().collectLatest {
+                viewStates?.favRecipes?.clear()
+                val list = it.map { it.toUIModel() }
+                viewStates?.favRecipes?.addAll(list)
+            }
+        }
+    }
+
+    private fun getAllRecipes() {
+        launchCoroutine {
+            setLoading()
+            viewStates?.allRecipes?.clear()
+            viewStates?.allRecipes?.addAll(getAllRecipesUseCase.execute().map { it.toUIModel() })
+            setDoneLoading()
+        }
+    }
+
+    override fun handleEvents(event: RecipesEvent) {
+        when (event) {
+            is RecipesEvent.AddRecipeToFavourite -> {
+                launchCoroutine {
+                    addRecipeToFavouriteUseCase.execute(event.recipeDomainModel.toDomainModel())
+                    val index = viewStates?.allRecipes?.indexOf(event.recipeDomainModel)
+                    if (index != null) {
+                        viewStates?.allRecipes?.set(
+                            index,
+                            event.recipeDomainModel.copy(isFavourite = true)
+                        )
+                    }
+                    setState {
+                        RecipesState.AddSuccess
+                    }
+                }
+            }
+            is RecipesEvent.ChangeScreenMode -> {
+                viewStates?.screenMode?.value = when (viewStates?.screenMode?.value) {
+                    RecipesScreenMode.All -> {
+                        viewStates?.isNetworkError?.value = false
+                        RecipesScreenMode.FavouriteOnly
+                    }
+                    RecipesScreenMode.FavouriteOnly -> {
+                        if (viewStates?.allRecipes.isNullOrEmpty() && viewStates?.isLoading?.value?.not() == true)
+                            getAllRecipes()
+
+                        RecipesScreenMode.All
+                    }
+                    null -> RecipesScreenMode.All
+                }
+            }
+            is RecipesEvent.OnRecipeClicked -> {
+                setState {
+                    RecipesState.OpenRecipeDetailsScreen(event.recipeDomainModel)
+                }
+            }
+            RecipesEvent.RefreshScreen -> {
+                if (viewStates?.screenMode?.value == RecipesScreenMode.All)
+                    getAllRecipes()
+            }
+            is RecipesEvent.RemoveRecipeFromFavourite -> {
+                launchCoroutine {
+                    removeRecipeFromFavouriteUseCase.execute(event.recipeDomainModel.id)
+                    val currentRecipe = viewStates?.allRecipes?.find {
+                        it?.id == event.recipeDomainModel.id
+                    }
+                    val index = viewStates?.allRecipes?.indexOf(currentRecipe)
+                    if (index != null) {
+                        viewStates?.allRecipes?.set(
+                            index,
+                            event.recipeDomainModel.copy(isFavourite = false)
+                        )
+                    }
+                    setState {
+                        RecipesState.RemoveSuccess
+                    }
+                }
+            }
+            RecipesEvent.ClearAllFavourite -> {
+                launchCoroutine {
+                    clearAllRecipesFromFavouriteUseCase.execute()
+                    val favIndexMapped = mutableMapOf<Int, RecipeUIModel>()
+
+                    viewStates?.allRecipes?.filter {
+                        it?.isFavourite ?: false
+                    }?.filterNotNull()?.forEach {
+                        viewStates?.allRecipes?.indexOf(it)?.let { index ->
+                            favIndexMapped.put(index, it.copy(isFavourite = false))
+
+                        }
+                    }
+
+                    favIndexMapped.forEach {
+                        viewStates?.allRecipes?.set(
+                            it.key,
+                            it.value
+                        )
+                    }
+
+                }
+            }
+            RecipesEvent.OnLogoutClicked -> {
+                launchCoroutine {
+                    logOutUserUseCase.execute()
+                    clearLocalDB()
+                    getAllRecipes()
+                    setState {
+                        RecipesState.OpenLoginScreen
+                    }
+                }
+            }
+        }
+    }
+
+    private suspend fun clearLocalDB() {
+        withContext(Dispatchers.IO) {
+            appDatabase.clearAllTables()
+        }
+    }
+
+    override fun createInitialViewState(): RecipesViewState {
+        return RecipesViewState()
+    }
+}
