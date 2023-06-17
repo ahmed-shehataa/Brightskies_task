@@ -18,7 +18,7 @@ relevant information.
 
 
 ## APK Download
-[Click here](https://drive.google.com/file/d/15yxJwuv35lZ2-g77FJnGheyvP9xcccKq/view?usp=sharing)
+[Click here](https://drive.google.com/file/d/1MgINknWzpHDKiSAVB8G5enQi5mQDj6s7/view?usp=sharing)
 
 
 ## In-App architecture
