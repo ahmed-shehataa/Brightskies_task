@@ -15,17 +15,11 @@ plugins {
     id 'com.google.dagger.hilt.android' version '2.44' apply false
 }
 
-/**
- * To run all: Local unit test
- */
 task runUnitTests(dependsOn: ['app:test']) {
     group = 'custom_tasks'
     description = "Run all Local unit tests"
 }
 
-/**
- * To run all: Instrumented unit test
- */
 task runInstrumentedTests(dependsOn: ['app:connectedAndroidTest']) {
     group = 'custom_tasks'
     description = "Run all Instrumented unit tests"
