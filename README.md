@@ -42,28 +42,31 @@ relevant information.
 </p>
 
 ## Credentials:
-Email: ahmed@gmail.com
-Password: 123456
+Email: ahmed@gmail.com   
+Password: 123456   
 
 
 ## Unit testing for:
 <p>
-  <img src="img/unit.gif" height="250" width="250">
+  <img src="img/unit_test.gif" height="250" width="250">
 </p>
-- Login module (data - repository - useCase)
-- User module (data - repository - useCase)
-- Recipes module (data - repository - useCase)
-- Validation.kt
+
+- Login module (data - repository - useCase)  
+- User module (data - repository - useCase)   
+- Recipes module (data - repository - useCase)   
+- Validation.kt   
 
 ## UI test for:
 <p>
-  <img src="img/unit.gif" height="250" width="250">
+  <img src="img/ui_test.gif" height="250" width="250">
 </p>
-Hint:
 
-- All app flow
-- Login Screen
-- Recipes Screen
+`Hint: Run this class HomeActivityTest -> when user is not logged in the app `     
+`Hint: Run this class RecipesScreenKtTest -> when user is logged in the app `
+
+- All app flow   
+- Login Screen   
+- Recipes Screen   
 
 
 ## Features
