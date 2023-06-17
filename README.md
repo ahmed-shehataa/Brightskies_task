@@ -23,7 +23,7 @@ relevant information.
 
 ## App-Arch
 <p>
-  <img src="img/app_arch.png" height="250" width="250">
+  <img src="img/app_arch.png" height="250" width="350">
 </p>
 
 - base: contains base code
@@ -34,7 +34,7 @@ relevant information.
 
 ## In-App architecture
 <p>
-  <img src="img/arch.png" height="200" width="900">
+  <img src="img/arch.png" height="180" width="900">
 </p>
 
 ## In-App Testing
@@ -49,7 +49,7 @@ Password: 123456
 
 ## Unit testing for:
 <p>
-  <img src="img/unit_test.png" height="250" width="250">
+  <img src="img/unit_test.png" height="180" width="350">
 </p>
 
 - Login module (data - repository - useCase)  
@@ -59,7 +59,7 @@ Password: 123456
 
 ## UI test for:
 <p>
-  <img src="img/ui_test.png" height="250" width="250">
+  <img src="img/ui_test.png" height="180" width="350">
 </p>
 
 `Hint: Run this class HomeActivityTest -> when user is not logged in the app `     
