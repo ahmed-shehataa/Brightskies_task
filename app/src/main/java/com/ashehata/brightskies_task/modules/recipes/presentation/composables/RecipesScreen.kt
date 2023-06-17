@@ -23,8 +23,8 @@ import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 @Composable
 @Destination
 fun RecipesScreen(
-    navigator: DestinationsNavigator,
-    viewModel: RecipesViewModel
+    viewModel: RecipesViewModel,
+    navigator: DestinationsNavigator? = null,
 ) {
 
     val context = LocalContext.current
@@ -143,14 +143,14 @@ fun RecipesScreen(
                 Toast.makeText(context, "Add to Favourite!", Toast.LENGTH_SHORT).show()
             }
             is RecipesState.OpenRecipeDetailsScreen -> {
-                navigator.navigate(RecipeDetailsScreenDestination(it.recipeDomainModel))
+                navigator?.navigate(RecipeDetailsScreenDestination(it.recipeDomainModel))
             }
             RecipesState.RemoveSuccess -> {
                 Toast.makeText(context, "Removed from Favourite!", Toast.LENGTH_SHORT).show()
 
             }
             RecipesState.OpenLoginScreen -> {
-                navigator.navigate(
+                navigator?.navigate(
                     LoginScreenDestination.route,
                     navOptions = navOptions {
                         popUpTo(RecipesScreenDestination.route) {

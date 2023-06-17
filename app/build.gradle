@@ -128,6 +128,7 @@ dependencies {
     androidTestImplementation "androidx.test:runner:1.5.2"
     androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44'
     kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.44'
+    androidTestImplementation('androidx.test.uiautomator:uiautomator:2.3.0-alpha03')
     //endregion
 
 

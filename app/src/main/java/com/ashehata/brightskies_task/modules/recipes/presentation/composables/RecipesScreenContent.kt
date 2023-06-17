@@ -17,11 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.ashehata.brightskies_task.R
@@ -33,7 +36,9 @@ import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipesS
 import com.ashehata.brightskies_task.modules.user.presentaion.model.UserUIModel
 
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalAnimationApi::class,
+    ExperimentalComposeUiApi::class
+)
 @Composable
 fun RecipesScreenContent(
     allRecipes: List<RecipeUIModel?>,
@@ -72,7 +77,9 @@ fun RecipesScreenContent(
     }
 
 
-    Column(Modifier.pullRefresh(refreshState)) {
+    Column(Modifier.pullRefresh(refreshState).semantics {
+        testTagsAsResourceId = true
+    }) {
         val backIconNavigation: (@Composable () -> Unit)? = remember(screenMode) {
 
             if (screenMode == RecipesScreenMode.FavouriteOnly) {
@@ -82,7 +89,7 @@ fun RecipesScreenContent(
                             onBackPressed()
                         },
                     ) {
-                        Icon(Icons.Filled.ArrowBack, null, tint = Color.Black)
+                        Icon(Icons.Filled.ArrowBack, "ArrowBack", tint = Color.Black)
                     }
                 }
             } else null
@@ -112,7 +119,7 @@ fun RecipesScreenContent(
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Delete,
-                            contentDescription = null,
+                            contentDescription = "DeleteALL",
                         )
                     }
                 }
@@ -124,7 +131,7 @@ fun RecipesScreenContent(
                 }) {
                     Icon(
                         imageVector = Icons.Filled.Favorite,
-                        contentDescription = null,
+                        contentDescription = "Favorite",
                         tint = colorAnimated.value
                     )
                 }
@@ -135,7 +142,7 @@ fun RecipesScreenContent(
                     Icon(
                         modifier = Modifier.size(20.dp),
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_logout),
-                        contentDescription = null,
+                        contentDescription = "Logout",
                         tint = Color.Black,
                     )
                 }

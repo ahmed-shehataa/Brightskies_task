@@ -98,7 +98,7 @@ fun RecipeItem(
                 }
                 .padding(4.dp),
             imageVector = Icons.Outlined.Favorite,
-            contentDescription = null,
+            contentDescription = "Favorite_recipe",
             tint = if (recipe?.isFavourite == true) Color.Red else Color.Black
         )
 
