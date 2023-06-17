@@ -8,15 +8,20 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import com.ashehata.brightskies_task.R
+import com.ashehata.brightskies_task.database.datastore.AppDataStore
+import com.ashehata.brightskies_task.database.room.AppDatabase
 import com.ashehata.brightskies_task.modules.home.HomeActivity
 import com.ashehata.brightskies_task.modules.recipes.presentation.viewmodel.RecipesViewModel
 import com.ashehata.brightskies_task.ui.theme.AppTheme
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.lang.Thread.sleep
+import javax.inject.Inject
 
 
 @HiltAndroidTest
@@ -28,6 +33,9 @@ class RecipesScreenKtTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<HomeActivity>()
+
+    @Inject
+    lateinit var appDatabase: AppDatabase
 
     private lateinit var recipesViewModel: RecipesViewModel
 
@@ -70,6 +78,7 @@ class RecipesScreenKtTest {
 
     @Before
     fun setup() {
+        hiltRule.inject()
         composeTestRule.activity.setContent {
             AppTheme {
                 recipesViewModel = hiltViewModel()
@@ -78,6 +87,12 @@ class RecipesScreenKtTest {
         }
     }
 
+    @After
+    fun tearDown() {
+        runBlocking {
+            appDatabase.recipesDao().clearAll()
+        }
+    }
 
     @Test
     fun initial_screen_icons_displayed() {
