@@ -16,6 +16,10 @@ import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
 
+/**
+ * Hint:
+ * Run this class when user is not logged in the app
+ */
 @HiltAndroidTest
 class HomeActivityTest {
 

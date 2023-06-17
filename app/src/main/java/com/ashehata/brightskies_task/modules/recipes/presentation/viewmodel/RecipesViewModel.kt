@@ -1,6 +1,7 @@
 package com.ashehata.brightskies_task.modules.recipes.presentation.viewmodel
 
 import com.ashehata.brightskies_task.base.BaseViewModel
+import com.ashehata.brightskies_task.database.room.AppDatabase
 import com.ashehata.brightskies_task.modules.recipes.domain.usecase.*
 import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesEvent
 import com.ashehata.brightskies_task.modules.recipes.presentation.contract.RecipesState
@@ -13,7 +14,9 @@ import com.ashehata.brightskies_task.modules.user.domain.usecase.GetUserUseCase
 import com.ashehata.brightskies_task.modules.user.domain.usecase.LogOutUserUseCase
 import com.ashehata.brightskies_task.modules.user.presentaion.mapper.toUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +27,8 @@ class RecipesViewModel @Inject constructor(
     private val removeRecipeFromFavouriteUseCase: RemoveRecipeFromFavouriteUseCase,
     private val clearAllRecipesFromFavouriteUseCase: ClearAllRecipesFromFavouriteUseCase,
     private val logOutUserUseCase: LogOutUserUseCase,
-    private val getUserUseCase: GetUserUseCase
+    private val getUserUseCase: GetUserUseCase,
+    private val appDatabase: AppDatabase,
 ) : BaseViewModel<RecipesEvent, RecipesViewState, RecipesState>() {
 
 
@@ -144,6 +148,8 @@ class RecipesViewModel @Inject constructor(
             RecipesEvent.OnLogoutClicked -> {
                 launchCoroutine {
                     logOutUserUseCase.execute()
+                    clearLocalDB()
+                    getAllRecipes()
                     setState {
                         RecipesState.OpenLoginScreen
                     }
@@ -152,6 +158,11 @@ class RecipesViewModel @Inject constructor(
         }
     }
 
+    private suspend fun clearLocalDB() {
+        withContext(Dispatchers.IO) {
+            appDatabase.clearAllTables()
+        }
+    }
 
     override fun createInitialViewState(): RecipesViewState {
         return RecipesViewState()

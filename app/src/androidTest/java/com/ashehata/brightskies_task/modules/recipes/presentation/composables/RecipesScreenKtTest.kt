@@ -15,7 +15,9 @@ import com.ashehata.brightskies_task.modules.recipes.presentation.viewmodel.Reci
 import com.ashehata.brightskies_task.ui.theme.AppTheme
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -24,6 +26,10 @@ import java.lang.Thread.sleep
 import javax.inject.Inject
 
 
+/**
+ * Hint:
+ * Run this class when user is logged in the app
+ */
 @HiltAndroidTest
 class RecipesScreenKtTest {
 
@@ -90,7 +96,9 @@ class RecipesScreenKtTest {
     @After
     fun tearDown() {
         runBlocking {
-            appDatabase.recipesDao().clearAll()
+            withContext(Dispatchers.IO) {
+                appDatabase.clearAllTables()
+            }
         }
     }
 

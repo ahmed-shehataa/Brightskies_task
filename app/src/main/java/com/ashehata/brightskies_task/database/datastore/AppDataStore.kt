@@ -17,7 +17,12 @@ import javax.inject.Singleton
 @Singleton
 class AppDataStore @Inject constructor(private val context: Context) {
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "MY_PREF")
+    /** why companion object here?
+     * To prevent creating multi instance from same [preferencesDataStore]
+     */
+    companion object {
+        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "MY_PREF")
+    }
     private val isLoggedInPref = booleanPreferencesKey("is_logged_in")
     private val userPref = stringPreferencesKey("user_pref")
 
