@@ -23,8 +23,9 @@ relevant information.
 
 ## App-Arch
 <p>
-  <img src="img/app_arch.gif" height="250" width="250">
+  <img src="img/app_arch.png" height="250" width="250">
 </p>
+
 - base: contains base code
 - common: contains common classes that may used at many places like (composable fun)
 - database: room and datastore
@@ -48,7 +49,7 @@ Password: 123456
 
 ## Unit testing for:
 <p>
-  <img src="img/unit_test.gif" height="250" width="250">
+  <img src="img/unit_test.png" height="250" width="250">
 </p>
 
 - Login module (data - repository - useCase)  
@@ -58,7 +59,7 @@ Password: 123456
 
 ## UI test for:
 <p>
-  <img src="img/ui_test.gif" height="250" width="250">
+  <img src="img/ui_test.png" height="250" width="250">
 </p>
 
 `Hint: Run this class HomeActivityTest -> when user is not logged in the app `     
