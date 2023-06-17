@@ -23,6 +23,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.ashehata.brightskies_task.R
 import com.ashehata.brightskies_task.modules.recipes.presentation.model.RecipeUIModel
+import com.ashehata.brightskies_task.util.doIf
 
 @Composable
 fun RecipeDetailsScreenContent(
@@ -115,47 +116,60 @@ fun RecipeDetailsScreenContent(
 
                     }
 
-                    item {
-                        RecipeDetailsItem(
-                            title = R.string.description,
-                            description = recipe.value.description ?: ""
-                        )
+                    recipe.value.description?.doIf {
+                        item {
+                            RecipeDetailsItem(
+                                title = R.string.description,
+                                description = it
+                            )
+                        }
                     }
 
-                    item {
-                        RecipeDetailsItem(
-                            title = R.string.carbos,
-                            description = recipe.value.carbos ?: ""
-                        )
+                    recipe.value.carbos?.doIf {
+                        item {
+                            RecipeDetailsItem(
+                                title = R.string.carbos,
+                                description = it
+                            )
+                        }
                     }
 
-                    item {
-                        RecipeDetailsItem(
-                            title = R.string.calories,
-                            description = recipe.value.calories ?: ""
-                        )
+                    recipe.value.calories?.doIf {
+
+                        item {
+                            RecipeDetailsItem(
+                                title = R.string.calories,
+                                description = it
+                            )
+                        }
                     }
 
-                    item {
-                        RecipeDetailsItem(
-                            title = R.string.proteins,
-                            description = recipe.value.proteins ?: ""
-                        )
+
+                    recipe.value.proteins?.doIf {
+                        item {
+                            RecipeDetailsItem(
+                                title = R.string.proteins,
+                                description = it
+                            )
+                        }
                     }
 
-                    item {
-                        RecipeDetailsItem(
-                            title = R.string.fats,
-                            description = recipe.value.fats ?: ""
-                        )
+                    recipe.value.fats?.doIf {
+                        item {
+                            RecipeDetailsItem(
+                                title = R.string.fats,
+                                description = it
+                            )
+                        }
                     }
 
-                    item {
-                        RecipeDetailsItem(
-                            title = R.string.ingredients,
-                            description = recipe.value.ingredients?.joinToString(separator = ", \n")
-                                ?: ""
-                        )
+                    recipe.value.ingredients?.doIf {
+                        item {
+                            RecipeDetailsItem(
+                                title = R.string.ingredients,
+                                description = it.joinToString(separator = ", \n")
+                            )
+                        }
                     }
 
 
