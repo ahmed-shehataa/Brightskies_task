@@ -21,6 +21,16 @@ relevant information.
 [Click here](https://drive.google.com/file/d/1MgINknWzpHDKiSAVB8G5enQi5mQDj6s7/view?usp=sharing)
 
 
+## App-Arch
+<p>
+  <img src="img/app_arch.gif" height="250" width="250">
+</p>
+- base: contains base code
+- common: contains common classes that may used at many places like (composable fun)
+- database: room and datastore
+- modules: contains app features (login - recipes - user ..etc)
+- util: for utility classes
+
 ## In-App architecture
 <p>
   <img src="img/arch.png" height="200" width="900">
@@ -37,12 +47,20 @@ Password: 123456
 
 
 ## Unit testing for:
+<p>
+  <img src="img/unit.gif" height="250" width="250">
+</p>
 - Login module (data - repository - useCase)
 - User module (data - repository - useCase)
 - Recipes module (data - repository - useCase)
 - Validation.kt
 
 ## UI test for:
+<p>
+  <img src="img/unit.gif" height="250" width="250">
+</p>
+Hint:
+
 - All app flow
 - Login Screen
 - Recipes Screen
