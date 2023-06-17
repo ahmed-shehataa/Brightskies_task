@@ -78,7 +78,7 @@ Password: 123456
 
 ## Tools & APIs
 - Jetpack Compose
-- Compose navigation
+- Compose navigation ([Compose Destinations](https://composedestinations.rafaelcosta.xyz))
 - Clean architecture
 - MVVM arch pattern (reactive MVI)
 - Coroutines
@@ -86,8 +86,8 @@ Password: 123456
 - Retrofit
 - Room
 - Coil
-- Unit testing
-- UI testing
+- Unit testing (Mockito)
+- UI testing (UI Automator - Compose UI)
 - Proguard
 
 
